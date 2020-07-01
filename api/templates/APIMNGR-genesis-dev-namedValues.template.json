@@ -1,0 +1,289 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "PolicyXMLBaseUrl": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "FsEsbAmdocs-app-jwt-audience",
+        "value": "614bba9b-35b0-41cb-b460-7ba7daff22ab"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/FsEsbAmdocs-app-jwt-audience')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "FsEsbAmdocs-secret-auth",
+        "value": "V_Y--D.9o-JWHoX5qM77-IT0~u18X59Y32"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/FsEsbAmdocs-secret-auth')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": false,
+        "displayName": "magento-addressvalidationmanagement-gis-uri",
+        "value": "/wsgisserviceV2/wsgisV2.asmx"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/magento-addressvalidationmanagement-gis-uri')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "magento-addressvalidationmanagement-va-clauser",
+        "value": "201808181005"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/magento-addressvalidationmanagement-va-clauser')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": false,
+        "displayName": "magento-addressvalidationmanagement-va-codpaq",
+        "value": "1108"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/magento-addressvalidationmanagement-va-codpaq')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "magento-addressvalidationmanagement-va-nomuser",
+        "value": "desarrollo.solera@telefonica.com.pe"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/magento-addressvalidationmanagement-va-nomuser')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "magento-app-jwt-audience",
+        "value": "728bd85e-b59e-403c-bd76-7773c0dc9491"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/magento-app-jwt-audience')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "qallarix-app-jwt-audience",
+        "value": "76c044c5-e145-4da8-81d2-9ef442c1b813"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/qallarix-app-jwt-audience')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "tenand-id-jwt-openid-config-url",
+        "value": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/.well-known/openid-configuration"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/wappe-contestadorvirtual-jwt-openid-config-url')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "Tenant-ID-2",
+        "value": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/v2.0/.well-known/openid-configuration"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/Tenant-ID-2')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "visor-app-jwt-audience",
+        "value": "af4fb975-daf7-4aef-a417-1a09c029f549"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/visor-app-jwt-audience')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "wappe-app-jwt-audience",
+        "value": "67e5ec01-6a13-4166-964a-87ce5bf10077"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/wappe-contestadorvirtual-jwt-audience')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "wappe-contestadorvirtual-oauth2-auth-url",
+        "value": "https://gestionfijamovil.telefonica.com.pe/WebApiWappe/token"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/wappe-contestadorvirtual-oauth2-auth-url')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": false,
+        "displayName": "wappe-contestadorvirtual-oauth2-grant-type",
+        "value": "password"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/wappe-contestadorvirtual-oauth2-grant-type')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "wappe-contestadorvirtual-oauth2-password",
+        "value": "T3l3f0n1c@RCV20"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/wappe-contestadorvirtual-oauth2-password')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "wappe-contestadorvirtual-oauth2-username",
+        "value": "usuario"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/wappe-contestadorvirtual-oauth2-username')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "wappe-facturacionaltoke-oauth2-auth-url",
+        "value": "https://devfactura.movistar.com.pe/ws/token"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/wappe-facturacionaltoke-oauth2-auth-url')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "wappe-facturacionaltoke-oauth2-grant-type",
+        "value": "password"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/wappe-facturacionaltoke-oauth2-grant-type')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "wappe-facturacionaltoke-oauth2-password",
+        "value": "T3l3f0n1c4"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/wappe-facturacionaltoke-oauth2-password')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "wappe-facturacionaltoke-oauth2-username",
+        "value": "20100017491"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/wappe-facturacionaltoke-oauth2-username')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "wappe-office365-oauth2-auth-url",
+        "value": "https://gestionfijamovil.telefonica.com.pe/WebApiO365/token"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/wappe-office365-oauth2-auth-url')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "wappe-office365-oauth2-password",
+        "value": "T3l3f0n1c@RCV20"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/wappe-office365-oauth2-password')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "wappe-office365-oauth2-username",
+        "value": "usero365"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/wappe-office365-oauth2-username')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "wappe-secret-auth",
+        "value": "ZMW=YQ1/-fb?1z2Q5mE4X@o?beeCqrd:"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/wappe-secret-auth')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "tags": [],
+        "secret": true,
+        "displayName": "webhogar-app-jwt-audience",
+        "value": "02080fae-cfcb-4301-846c-751f7230f870"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/webhogar-app-jwt-audience')]",
+      "type": "Microsoft.ApiManagement/service/properties",
+      "apiVersion": "2019-01-01"
+    }
+  ]
+}

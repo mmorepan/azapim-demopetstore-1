@@ -1,0 +1,385 @@
+{
+	"info": {
+		"_postman_id": "6243193d-0b7b-49ce-baa7-b1b2c3814ded",
+		"name": "_t02-token",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "pre-process",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a33b07e2-1221-4185-9d8f-ef14b62ceac8",
+						"exec": [
+							"var expires_on = parseInt(pm.collectionVariables.get(\"expires_on\"))\r",
+							"var getCurrentTime = () => {\r",
+							"    return Math.round(Date.now() / 1000)\r",
+							"}\r",
+							"\r",
+							"/* We can use the access_token a minute (60 seconds) before it expires */\r",
+							"if (getCurrentTime() + 60 < expires_on) {\r",
+							"    postman.setNextRequest(\"get\")\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://postman-echo.com/get",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Oauth 2.0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "34e88801-2cf9-46fc-8568-c61881448b62",
+						"exec": [
+							"var jsonResponse = pm.response.json()\r",
+							"\r",
+							"pm.collectionVariables.set(\"refresh_token\", jsonResponse.refresh_token)\r",
+							"pm.collectionVariables.set(\"access_token\", jsonResponse.access_token)\r",
+							"pm.collectionVariables.set(\"expires_on\", jsonResponse.expires_on)\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c53f8b6b-7dd1-4824-a47a-6bbc94434726",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-url-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "c7476004-2000-4af0-adb9-f2a213eb171a",
+							"type": "text"
+						},
+						{
+							"key": "resource",
+							"value": "728bd85e-b59e-403c-bd76-7773c0dc9491",
+							"type": "text"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "https://apimngr-genesis-dev.portal.azure-api.net/docs/services/integrationoauth/console/oauth2/authorizationcode/callback",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "[0xY7xa2B?FULfcH8sHpS]qu/[QFYRdc",
+							"type": "text"
+						},
+						{
+							"key": "refresh_token",
+							"value": "AQABAAAAAAAm-06blBE1TpVMil8KPQ41MUNN1CT-taMm0ZyvXoC9QOU3b5gvCYl9UazjCxl0YpB7vz3yn9edMA1Jg1oqJlUiAg2JoZgSSgFByHW5lu04amy-m-9o7L5HFhcQ2i-nGdn8NGmYaMkaEbP9U70by6pzEsFrB0paTuzBFGyHriPgG-KxsNWtMkzjXNMFvZDKJmp6hBRp0-VcZw7GMd3E2NJk0_rx3ua-foEhGo8vhj9bFCSoLCIvC6cHBDi9NCUOSBtPfiJJL9UQbBy3yqHWZMxsnYGE8SV9PEcKYBlWKSsPnvQCAgGE7PpOOMzGRHSkqllUkLJhBZ9fBN7pUFBUlotYEGJI23DPe4BooNUlwgw41ptzAvDdVJZArRgZI5yd4s2FKYXeLrrA_8taUubtAQxFRh1kJXXi9csFz9eTcOrhFOLFC_pM_9Y0WhN46DQ74CZBZR5OyZOgjdf61z3ZB6-f8-VJB7q5facBStndyWAg6GxGA3ppNazL9sGgJUNQyfzpabja_agkY9U9Mi2recndm5E_xOW15ukDS4jyT1G9tU2e0U8PBELyDWi9CEtjdfmO7s4F0nB6hQy5NMKc864Q70NMKq7I5GoKYTE6dLap4TZ76j15fhcLF4nLB8hs6F5YmwcmHIENGotIiajZ_H-b_DUV9kyzjBOHHmxt_Pj3PB1S7t2iUs33UFRsnjZ797HmHTrOe7mk8yfGBiDxEeQSzCZBUKJuRX0XTp7rosGV6FznnGxlR4dDsHpxyLssiuigd1iAH3R8QfjVmdWO88MO6InlQRNrXpJgLHPB7qknhA_oyzZtvisSfeFmtmAu5SPWrxvCi2uNcujBFzPulPcEi_OituFL6LvPbzaQaZS5rOqz2U37r7OOsg-PBD_vyddZQ39UE951u4FGCSbL8NyuI-X-rOlrx2WYKjSfVMpyQrO1zAt7OGcyJjiWeAGmdFXmjSQCiol5iRZawmxjV0iIBdUafoZmljQNHh8803l8NBqBhsBPJ2SixvZFKxILvRitgn_3JMvb5IBZAU_C9EqQioTfNgQTMa2lb63fnjh0u9Xeguw7Unbu60U2Q76eyJEsVw69x3_7p1y_1oG5RSiGh9hhNs46WDCCFlWDXtSfgvS5MbVyOPQ-VcrE4OedgkP9cnQ_aQ4Hg-D4vvt0sWKbIB3YOCMB1wEc-nwV446p3iAA",
+							"type": "text"
+						}
+					],
+					"options": {
+						"urlencoded": {}
+					}
+				},
+				"url": {
+					"raw": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"login",
+						"microsoftonline",
+						"com"
+					],
+					"path": [
+						"929616ff-818c-4541-b071-2bd6ab912e88",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c95a367b-4799-40fc-87f9-3b8482c71446",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "5545549c-11f6-4795-8b4e-bbd9ab4e5393",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "87ede122a7dd4958aa5ad90c4ee58c71",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://apimngr-genesis-dev.azure-api.net/demo/petstore/pets/2",
+					"protocol": "https",
+					"host": [
+						"apimngr-genesis-dev",
+						"azure-api",
+						"net"
+					],
+					"path": [
+						"demo",
+						"petstore",
+						"pets",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "57e12857-6128-4251-b972-65747e6fa76c",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "76307be7-9fb3-4fba-befd-621976822ebf",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"/*\r",
+							"pm.test(\"Response time is odd\", function () {\r",
+							"    pm.expect(pm.response.responseTime % 2).to.be.eql(1);\r",
+							"});\r",
+							"*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Ocp-Apim-Subscription-Key",
+						"value": "87ede122a7dd4958aa5ad90c4ee58c71",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://apimngr-genesis-dev.azure-api.net/demo/petstore/pets",
+					"protocol": "https",
+					"host": [
+						"apimngr-genesis-dev",
+						"azure-api",
+						"net"
+					],
+					"path": [
+						"demo",
+						"petstore",
+						"pets"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "201 Create - 01",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"value": "87ede122a7dd4958aa5ad90c4ee58c71",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://apimngr-genesis-dev.azure-api.net/demo/petstore/pets",
+							"protocol": "https",
+							"host": [
+								"apimngr-genesis-dev",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"demo",
+								"petstore",
+								"pets"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Via",
+							"value": "1.1 vegur"
+						},
+						{
+							"key": "Content-Length",
+							"value": "84"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"54-Vus37zjZTpmRxkJg+XN0DJBYCks\""
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Expect-CT",
+							"value": "max-age=604800,report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\""
+						},
+						{
+							"key": "CF-RAY",
+							"value": "5981c80de926cf3c-IAD"
+						},
+						{
+							"key": "cf-request-id",
+							"value": "02e4fb5cb00000cf3c120a7200000001"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "__cfduid=ddb067cafb7553638039cdf356ddf70b41590268413; expires=Mon, 22-Jun-20 21:13:33 GMT; path=/; domain=.reqres.in; HttpOnly; SameSite=Lax; Secure"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 23 May 2020 21:13:33 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"morpheus\",\n    \"job\": \"leader\",\n    \"id\": \"510\",\n    \"createdAt\": \"2020-05-23T21:13:33.266Z\"\n}"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"id": "cea0bb29-25ab-474f-8ccb-4f27aba855e5",
+			"key": "access_token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IlNzWnNCTmhaY0YzUTlTNHRycFFCVEJ5TlJSSSIsImtpZCI6IlNzWnNCTmhaY0YzUTlTNHRycFFCVEJ5TlJSSSJ9.eyJhdWQiOiI3MjhiZDg1ZS1iNTllLTQwM2MtYmQ3Ni03NzczYzBkYzk0OTEiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC85Mjk2MTZmZi04MThjLTQ1NDEtYjA3MS0yYmQ2YWI5MTJlODgvIiwiaWF0IjoxNTkzNTA4MTY0LCJuYmYiOjE1OTM1MDgxNjQsImV4cCI6MTU5MzUxMjA2NCwiYWNyIjoiMSIsImFpbyI6IkFXUUFtLzhRQUFBQUpxb21PVnZsd3dwT0l2d0REYnE5bk5rM25CL0p5UjdjT2RWVTdOb1NaQWlnWHN0SEYyMmhBWk9ha3V6MnppZkZ2U0hZNW9TV0dCbUlMN3FBWlZDQ25BNVdxWERqOUVXeU5CbFZKYm5JdDN2QkM2K05zTm44bUNodDRoZit6OWRwIiwiYW1yIjpbInB3ZCJdLCJhcHBpZCI6ImM3NDc2MDA0LTIwMDAtNGFmMC1hZGI5LWYyYTIxM2ViMTcxYSIsImFwcGlkYWNyIjoiMSIsImVtYWlsIjoiamhvbi5sdWlzLnZhbGVuenVlbGEuZ2FyY2lhQGV2ZXJpcy5jb20iLCJpZHAiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC8zMDQ4ZGM4Ny00M2YwLTQxMDAtOWFjYi1hZTE5NzFjNzkzOTUvIiwiaXBhZGRyIjoiMTkwLjIzNy4xNDkuMTEzIiwibmFtZSI6Ikpob24gTHVpcyBWYWxlbnp1ZWxhIEdhcmNpYSIsIm9pZCI6ImVmYWQ4ZjM2LTEyNWYtNDNmNi05MWE2LWU2OTg0YzExMzBiZiIsInNjcCI6IkxlZXIuTWFnZW50byIsInN1YiI6ImoyRDJIQngxVlZqN3dmbVZwbEVNZmo2ejRJTHpqS2hLdWdXOGZLTjRLVVkiLCJ0aWQiOiI5Mjk2MTZmZi04MThjLTQ1NDEtYjA3MS0yYmQ2YWI5MTJlODgiLCJ1bmlxdWVfbmFtZSI6Impob24ubHVpcy52YWxlbnp1ZWxhLmdhcmNpYUBldmVyaXMuY29tIiwidXRpIjoibEhkYWpzSTN4VUc5MDhESlpoZENBZyIsInZlciI6IjEuMCJ9.aEJZko2M11nddxPgnaTdQ22ZqTL1UI1uQCW2kcROiZEvMwFGndXO8MTP3ljBMlzLgh2PJ7w85ZjKUeTZPzx8C3LSN-A04DYUlRTBwW9JFC3wgCL3GuOBIF2Sp42zm9B2FLsVj8k_2Wd2Lj8wLMHA5d5tatc4pB3J3HiLu7Nc308IQLkVomioNQz7Ddb491l7ON8elDCMRuBZ_OOsQeb3mjbEshCqtTHipV74xp3WnYBnbyrXHUtTR0x64mJiR_GXAJOwlZc1kz4saGDFFQrvd4oUu1FNRU93rraYFNSvBn4gw4xa6usecaG8yjMXBK9XG_vAwX_Sgl9cysVVuq7liA"
+		},
+		{
+			"id": "5389dd50-afb9-4c04-a225-30c097455300",
+			"key": "expires_on",
+			"value": "1593512064"
+		},
+		{
+			"id": "ad38faeb-2530-4a84-b478-6d8a99dd3173",
+			"key": "refresh_token",
+			"value": "AQABAAAAAAAGV_bv21oQQ4ROqh0_1-tAA-vdEbaGZuYsKNCv8zYzVjwp5EEhLdu-tlDU_em_wi4mlnUWJMc0FmXRalzh8Cc4DiUxkmIFEbh1CLDgCwVus90jkhHvSDqtBw44TeTe5MnC7of-IjxYi1TJVxz19i1xu8xpbvkUV1gC_DTHBfCg0NxLeaqvBgyIiuWnC0kRzDpTPNjoqAPE_bdt9mA3mzdGIsGmq4Rtb17gwBdS2xxlkuckWaQEH4SmDq-GPi01QcOC1t_uB5bB2-SARu6DUxizJwHuTQ0uUARXHr7WyZEpD_0ONH0zXkWfYG42wCMiBtSXv4GeciepEI5S2mXxMZzdFs91_F9zRleKcAV4jUxmMYHlRmxJn6Mi73lCYBkgYRoqVbI7pTkGXoWOEix7nVMwbuFjP1vSZ-9BSGip9kCRZiucrmquGtrydpMobCRBrdlIbZTxVj31JMLyNfLIYttqbQ6VfHFwNBnut0nu_nz-q3cGkOwfY-KITDOl3wZG6dNejahe_06Mj-6YUbcc6_b-KU1H0eZ8NwCgCuuMnMXiedBKDU__YDI4BinKoFJnA2GfRhCt5Y0iQgU3WJe2gyr8cLTTuu4tcnX2-cZU5cKFbySemIU6sX0S0lFu2DrX0Q5FgDWY0B5gryikTudOVIZCDzOR7wwcMSu_uCojJ1PG6ZAwJmYAlVCutXh-dV2dVEEqLHBQ3ALKqchoo8s7ebqiAiNuEqvBVY01ybqpRNfFxTBVwvWrocccnpY9sWE7ebmPcv6B8SgZKPAn-ah6lvwoOjd-g3KNtvrsYPlyMcTGs8h_4EniB6JigZKk9z6hJyJ7l7OJK-Sh2OosWYH9HdACRgUbplwwPrXJdO_6RtMzNklrFMEdGO7owLw64NSK5HX7ukHlSlzGnjV_UZoU8v8YkQUEf95H3upehdMX1etEuGaA3ZV1Z68n4DJxZ2-2b-UqBq9I6G1buG7S5N31NVwmTaY9ZyMf61-QfG510BcyRCs7IBJVC-MOeUDx-xo5V11Il-GPUqjNarKfj2Hf19cYjzqRKfOTQ4cGwb1RvH2FoOVvK5HyNbLiSjYSGLXCOs8icNlJQSUQm9NIJ94FfbSXCyipYKgnbKu9GdNYIlYIOZEo1cDRjYJahVUp11YSb6obJwVSuih8WzWtbGDcePO0GKx4BekC6c-a_-vYm9oMiRgQPgOWt-v8Z1_lfM85_0UgAA"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

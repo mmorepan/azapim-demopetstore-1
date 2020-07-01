@@ -1,0 +1,67 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "PolicyXMLBaseUrl": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "properties": {
+        "description": "Servicio de OAuth 2.0 para Integración",
+        "authorizationMethods": [
+          "GET",
+          "POST"
+        ],
+        "clientAuthenticationMethod": [
+          "Body"
+        ],
+        "tokenBodyParameters": [
+          {
+            "name": "resource",
+            "value": "67e5ec01-6a13-4166-964a-87ce5bf10077"
+          },
+          {
+            "name": "resource",
+            "value": "af4fb975-daf7-4aef-a417-1a09c029f549"
+          },
+          {
+            "name": "resource",
+            "value": "10ecfcd4-4497-49a0-98db-3b381e418d8c"
+          },
+          {
+            "name": "resource",
+            "value": "02080fae-cfcb-4301-846c-751f7230f870"
+          },
+          {
+            "name": "resource",
+            "value": "728bd85e-b59e-403c-bd76-7773c0dc9491"
+          }
+        ],
+        "tokenEndpoint": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/token",
+        "supportState": false,
+        "defaultScope": "",
+        "bearerTokenSendingMethods": [
+          "authorizationHeader"
+        ],
+        "clientSecret": "[0xY7xa2B?FULfcH8sHpS]qu/[QFYRdc",
+        "resourceOwnerUsername": "",
+        "resourceOwnerPassword": "",
+        "displayName": "IntegrationOAuth2",
+        "clientRegistrationEndpoint": "https://localhost",
+        "authorizationEndpoint": "https://login.microsoftonline.com/929616ff-818c-4541-b071-2bd6ab912e88/oauth2/authorize",
+        "grantTypes": [
+          "authorizationCode"
+        ],
+        "clientId": "c7476004-2000-4af0-adb9-f2a213eb171a"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/integrationoauth')]",
+      "type": "Microsoft.ApiManagement/service/authorizationServers",
+      "apiVersion": "2019-01-01"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "value": "APIMNGR-genesis-dev"
+    },
+    "LinkedTemplatesBaseUrl": {
+      "value": "https://scapimngrintegraciondev.blob.core.windows.net/scaapimngrintdev-blob/armartifacts/templates"
+    },
+    "LinkedTemplatesUrlQueryString": {
+      "value": ""
+    },
+    "PolicyXMLBaseUrl": {
+      "value": "https://scapimngrintegraciondev.blob.core.windows.net/scaapimngrintdev-blob/armartifacts/templates/policies"
+    }
+  },
+  "resources": []
+}
